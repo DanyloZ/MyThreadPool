@@ -22,7 +22,6 @@ public class MyThreadPool implements Executor {
             try {
                 while (true) {
                     isWaitingForTask = true;
-                    System.out.println("available tasks:" + tasks.size());
                     Runnable task = tasks.take();
                     isWaitingForTask = false;
                     task.run();
@@ -33,7 +32,6 @@ public class MyThreadPool implements Executor {
             } catch (InterruptedException e) {
                //NOP
             }
-            System.out.println("Worker is stopped");
         }
     }
 
@@ -42,7 +40,6 @@ public class MyThreadPool implements Executor {
             Worker worker = new Worker();
             Thread thread = new Thread(worker);
             thread.start();
-            System.out.println("Worker " + i + " started");
             workers.put(worker, thread);
         }
     }
@@ -57,7 +54,6 @@ public class MyThreadPool implements Executor {
 
     public void shutdown() {
         isStopped = true;
-        System.out.println("shutting down");
         for (Map.Entry<Worker, Thread> entry : workers.entrySet()) {
             if (entry.getKey().isWaitingForTask) {
                 entry.getValue().interrupt();
@@ -67,7 +63,6 @@ public class MyThreadPool implements Executor {
 
     public List<Runnable> shutdownNow() {
         isStoppedNow = true;
-        System.out.println("shutting down now");
         for (Thread thread : workers.values()) {
             thread.interrupt();
         }

@@ -21,7 +21,7 @@ public class Test {
                 }
             });
             System.out.println("tast " + taskNum + " created");
-            Thread.sleep(100);
+//            Thread.sleep(100);
         }
         Thread.sleep(3000);
 //        pool.shutdown();
